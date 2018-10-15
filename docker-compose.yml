@@ -1,0 +1,10 @@
+version: '3.1'
+
+services:
+  arch-starter:
+    build: .
+    container_name: arch-starter
+    restart: always
+    volumes:
+      - ./src:/var/current
+    command: tail -f /dev/null
