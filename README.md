@@ -27,4 +27,6 @@ docker system prune -a
 ```
 
 ### Development 
-Dependencies should be defined within `deps`. Source files should live in `src`. When the container is built, the `src` directory is mounted to `/var/current/`, the working directory once the container is spun up. Any files 
+Dependencies should be defined within `deps`. Source files should live in `src`. When the container is built, the `src` directory is mounted to `/var/current/`, the working directory once the container is spun up. 
+
+All source files should live in `src` so as to have them available to run in the container. The `Dockerfile` specifies the steps that Docker takes in spinning up the container. `docker-compose.yml` houses the configurations for the services that define out docker config. 
