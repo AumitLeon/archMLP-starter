@@ -21,5 +21,10 @@ To stop the container:
 docker stop arch-starter
 ```
 
+Docker images can take up a lot of space if not properly removed. To remove any stopped containers and all unused images (not just dangling images):
+```
+docker system prune -a
+```
+
 ### Development 
 Dependencies should be defined within `deps`. Source files should live in `src`. When the container is built, the `src` directory is mounted to `/var/current/`, the working directory once the container is spun up. Any files 
