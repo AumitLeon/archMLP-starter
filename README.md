@@ -29,4 +29,19 @@ docker system prune -a
 ### Development 
 Dependencies should be defined within `deps`. Source files should live in `src`. When the container is built, the `src` directory is mounted to `/var/current/`, the working directory once the container is spun up. 
 
-All source files should live in `src` so as to have them available to run in the container. The `Dockerfile` specifies the steps that Docker takes in spinning up the container. `docker-compose.yml` houses the configurations for the services that define out docker config. 
+All source files should live in `src` so as to have them available to run in the container. The `Dockerfile` specifies the steps that Docker takes in spinning up the container. `docker-compose.yml` houses the configurations for the services that define our docker config. 
+
+Deployed python modules should be specified within `deps/python/requirements.txt`. We have a step in the `Dockerfile` that will automatically install these requirments. 
+
+If you want a container to have non-python dependencies, create a sub-directory within `deps` that specifies the type of dependency (i.e. `apt` or `misc` for miscellaneous dependencies), and add an `install.sh` script. 
+
+If for some reason you want the container to have have `emacs`, you would create `deps/misc`, and then create an `install.sh` script with the following;
+```
+sudo apt-get install emacs
+```
+
+When the docker container spins up, the following step will install this dependency: 
+```
+RUN ls /build/deps | xargs -I % -n 1 sh -c "cd /build/deps/% && sh install.sh" 
+
+```
