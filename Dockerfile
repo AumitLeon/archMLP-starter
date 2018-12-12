@@ -20,5 +20,8 @@ WORKDIR /var/current
 # Clean up build directory
 RUN rm -rf /build
 
+
+#EXPOSE 5000
+
 # Set the entrypoint
 CMD ["bash", "/var/current/test.sh"]

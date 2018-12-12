@@ -8,3 +8,6 @@ services:
     volumes:
       - ./src:/var/current
     command: tail -f /dev/null
+    ports:
+      - "5000:5000"
+    
