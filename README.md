@@ -45,3 +45,43 @@ When the docker container spins up, the following step will install this depende
 RUN ls /build/deps | xargs -I % -n 1 sh -c "cd /build/deps/% && sh install.sh" 
 
 ```
+
+### Prediction Container
+Thr prediction base container configurations described in this repo are sufficient to run the three primary containers described in our paper. 
+
+In order to run the prediction contianer, spin up and enter the container as described in [Usage](Usage). Once in the contianer, run the initilization script:
+```
+./initial.sh
+```
+
+Activate the new virtual envrionment:
+```
+source archMLP/bin/activate
+```
+
+To run the prediction server:
+```
+cd predictions/server/
+pip install -r requirements.txt
+python3 run_server.py
+```
+
+To send the contianer predictions, follow the format specifed in predictions/server/instance29.json:
+```json
+{ 
+    "amount": 355294.91,
+    "bType": 0,
+    "oldBalanceDest": 1392558.34,
+    "newBalanceDest": 1747853.25,
+    "oldBalanceOrig": 7842.46,
+    "newBalanceOrig": 0,
+    "errorBalanceOrig": 347452.45,
+    "errorBalanceDest": 0
+}
+```
+
+To get a prediction, execute the following CURL request:
+```curl
+curl -H "Content-Type: application/json" -X POST --data @instance29.json http://0.0.0.0:5000/predict
+```
+
