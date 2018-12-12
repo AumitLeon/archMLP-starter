@@ -46,6 +46,14 @@ RUN ls /build/deps | xargs -I % -n 1 sh -c "cd /build/deps/% && sh install.sh"
 
 ```
 
+### Train container
+The train script (yet to be converted into a python module) can be run within the base docker container with minimal overhead. From within the container, given a a set of features (x_train) and labels (y_train):
+```
+python3 train-model.py xs x_train.csv -ys y_train.csv
+```
+
+This will produce a binarized represenation of a trained model in a file called `mod.pk`. This is then used by the prediction container. 
+
 ### Prediction Container
 Thr prediction base container configurations described in this repo are sufficient to run the three primary containers described in our paper. 
 
@@ -84,4 +92,7 @@ To get a prediction, execute the following CURL request:
 ```curl
 curl -H "Content-Type: application/json" -X POST --data @instance29.json http://0.0.0.0:5000/predict
 ```
+
+
+
 
